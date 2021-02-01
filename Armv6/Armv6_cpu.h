@@ -28,7 +28,7 @@ typedef struct EPSR_t
 {
     Word RESERVED : 23;
     Word T : 1;
-    Word RESERVED : 7;
+    Word RESERVED_2 : 7;
 }EPSR_t;
 
 /// \brief
@@ -180,7 +180,7 @@ typedef union Instruction
     LoadStoreSingle loadStoreSingle;
     Miscelanious miscelanious;
     Hint hint;
-    ConditionalBranch conditionalBranch
+    ConditionalBranch conditionalBranch;
     // End 16 bit instructions
 
     // Start 32-bit instructions

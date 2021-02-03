@@ -1,6 +1,12 @@
 
 #include <stdio.h>
 #include "Armv6_cpu.h"
+#include "Armv6_shift.h"
+#include "Armv6_dataprocessing.h"
+#include "Armv6_specialdata.h"
+#include "Armv6_loadstoresingle.h"
+#include "Armv6_miscelanious.h"
+#include "Armv6_conditionalbranch.h"
 
 typedef enum InstructionGroup_t
 {
@@ -44,30 +50,6 @@ const struct InstructionPattern_t InstructionPattern[] =
 /// \brief
 /// Static function to determine the Instruction group
 static InstructionGroup_t decodeInstruction(const Instruction* instruction);
-
-/// \brief
-/// Static function to execute shift instructions
-static void execute_shift(CPU* cpu, const Instruction* instruction);
-
-/// \brief
-/// Static function to execute data processing group instructions
-static void execute_data_processing(CPU* cpu, const Instruction* instruction);
-
-/// \brief
-/// Static function to execute special data group instructions
-static void execute_special_data(CPU* cpu, const Instruction* instruction);
-
-/// \brief
-/// Static function to execute load store single group instructions
-static void execute_load_store_single(CPU* cpu, const Instruction* instruction);
-
-/// \brief
-/// Static function to execute miscelanious group instructions
-static void execute_miscelanious(CPU* cpu, const Instruction* instruction);
-
-/// \brief
-/// Static function to execute conditional branch group instructions
-static void execute_conditional_branch(CPU* cpu, const Instruction* instruction);
 
 void execute(CPU* cpu, const Instruction* instruction)
 {
@@ -129,35 +111,5 @@ InstructionGroup_t decodeInstruction(const Instruction* instruction)
     }
 
     return group;
-}
-
-void execute_shift(CPU* cpu, const Instruction* instruction)
-{
-
-}
-
-void execute_data_processing(CPU* cpu, const Instruction* instruction)
-{
-
-}
-
-void execute_special_data(CPU* cpu, const Instruction* instruction)
-{
-
-}
-
-void execute_load_store_single(CPU* cpu, const Instruction* instruction)
-{
-
-}
-
-void execute_miscelanious(CPU* cpu, const Instruction* instruction)
-{
-
-}
-
-void execute_conditional_branch(CPU* cpu, const Instruction* instruction)
-{
-
 }
 

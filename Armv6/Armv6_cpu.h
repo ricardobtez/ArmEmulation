@@ -1,3 +1,13 @@
+/**
+ * \file Armv6_cpu.h
+ * \brief This file contains the CPU specification for the Armv6 cpu
+ *
+ * \author Ricardo Benitez
+ *
+ * This file is part of ArmEmulation which is released under MIT Licence.
+ * See file LICENSE for full license details.
+ **/
+
 #ifndef ARMv6_CPU_H
 #define ARMv6_CPU_H
 

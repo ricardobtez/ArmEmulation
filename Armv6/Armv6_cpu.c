@@ -1,3 +1,12 @@
+/**
+ * \file Armv6_cpu.c
+ * \brief This file contains the definition for the CPU emulation
+ *
+ * \author Ricardo Benitez
+ *
+ * This file is part of ArmEmulation which is released under MIT Licence.
+ * See file LICENSE for full license details.
+ **/
 
 #include <stdio.h>
 #include "Armv6_cpu.h"

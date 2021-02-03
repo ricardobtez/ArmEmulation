@@ -1,3 +1,12 @@
+/**
+ * \file Armv6_shift.c
+ * \brief This file contains the definition for the shift instruction group
+ *
+ * \author Ricardo Benitez
+ *
+ * This file is part of ArmEmulation which is released under MIT Licence.
+ * See file LICENSE for full license details.
+ **/
 
 #include "Armv6_shift.h"
 

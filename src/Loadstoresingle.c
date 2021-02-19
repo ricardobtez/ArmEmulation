@@ -12,6 +12,7 @@
 
 void execute_load_store_single(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void)instruction;
 }
 

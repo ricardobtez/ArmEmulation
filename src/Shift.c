@@ -34,10 +34,14 @@ struct ShiftInstPattern_t
     ShiftGroup_t group;
 }ShiftInstPattern_t;
 
-
+const struct ShiftInstPattern_t pattern[] =
+{
+    {0,0,INVALID_MNEMONIC}
+};
 
 void execute_shift(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void)instruction;
 }
 

@@ -12,6 +12,7 @@
 
 void execute_miscelanious(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void)instruction;
 }
 

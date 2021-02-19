@@ -12,6 +12,7 @@
 
 void execute_data_processing(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void)instruction;
 }
 

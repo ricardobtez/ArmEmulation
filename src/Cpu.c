@@ -105,10 +105,10 @@ void execute(CPU* cpu, const Instruction* instruction)
 InstructionGroup_t decodeInstruction(const Instruction* instruction)
 {
     InstructionGroup_t group = INVALID_INSTRUCTION_GROUP;
-    uint16_t it = sizeof(InstructionPattern) /sizeof(InstructionPattern_t) - 1;
+    uint16_t it = sizeof(InstructionPattern) / sizeof(InstructionPattern_t) - 1;
     uint8_t masked_instruction = 0x0000;
 
-    while (it >= 0 && INVALID_INSTRUCTION_GROUP == group)
+    while (INVALID_INSTRUCTION_GROUP == group)
     {
         masked_instruction = ((uint8_t)(instruction->rawData >> 8)) & InstructionPattern[it].mask;
 

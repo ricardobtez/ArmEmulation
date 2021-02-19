@@ -10,6 +10,7 @@
 
 #ifndef ARMv6_CONDITIONAL_BRANCH_H
 #define ARMv6_CONDITIONAL_BRANCH_H
+#include "Armv6_cpu.h"
 
 /// \brief
 /// Function to execute conditional branch group instructions

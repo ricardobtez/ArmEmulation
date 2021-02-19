@@ -12,6 +12,7 @@
 
 void execute_conditional_branch(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void) instruction;
 }
 

@@ -12,6 +12,7 @@
 
 void execute_special_data(CPU* cpu, const Instruction* instruction)
 {
-
+    (void)cpu;
+    (void)instruction;
 }
 

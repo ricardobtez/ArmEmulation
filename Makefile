@@ -40,12 +40,16 @@ $(ODIR)/%.o: $(SDIR)/%.c
 TARGETS = all debug release test
 
 
-all : $(OBJS)
+all : init $(OBJS)
 	@echo Target: $@
 
 .PHONY: clean
 
+init :
+	mkdir $(ODIR)
+
 clean :
 	@echo Cleaning this project
 	rm -f $(ODIR)/*.o
+	rmdir $(ODIR)
 

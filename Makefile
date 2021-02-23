@@ -46,7 +46,10 @@ all : init $(OBJS)
 .PHONY: clean
 
 init :
-	mkdir $(ODIR)
+	@if [ ! -d "$(ODIR)" ]; then \
+		mkdir $(ODIR); \
+	fi
+
 
 clean :
 	@echo Cleaning this project

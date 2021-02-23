@@ -6,6 +6,8 @@
 
 # Setting compiler to GCC
 CC = gcc
+# Executable name
+EX_NAME = armemu
 
 # Compiler warnings
 CFLAGS = -Wall
@@ -29,19 +31,45 @@ INC = -iquote inc/
 ODIR = obj
 SDIR = src
 
-_OBJS = Conditionalbranch.o Cpu.o Dataprocessing.o Loadstoresingle.o Miscelanious.o \
-        Shift.o Specialdata.o
-OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
+# Object files to compile
+_OBJS = Conditionalbranch.o
+_OBJS += Cpu.o
+_OBJS += Dataprocessing.o
+_OBJS += Loadstoresingle.o
+_OBJS += Miscelanious.o
+_OBJS += Shift.o
+_OBJS += Specialdata.o
+_OBJS += main.o
+
+OBJS_DEBUG = $(patsubst %,$(ODIR)/debug/%,$(_OBJS))
+OBJS_RELEASE = $(addprefix $(ODIR)/release/,$(_OBJS))
+
+all : release
+
+release : init init_release $(OBJS_RELEASE) init_bin_release
+	@echo Target: $@
+	@$(CC) $(OBJS_RELEASE) -o bin/release/$(EX_NAME)
+
+debug : init init_debug $(OBJS_DEBUG) init_bin_debug
+	@echo Target: $@
+	@$(CC) -g $(OBJS_DEBUG) -o bin/debug/$(EX_NAME)
 
 # Define a pattern rule that compiles every .c file into a .o file in its destination
-$(ODIR)/%.o: $(SDIR)/%.c 
-	@$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
-# List of all the available targets
-TARGETS = all debug release test
+#$(ODIR)/%.o: $(SDIR)/%.c
+#	@echo this is not being run?
+#	@$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
 
+# Define a pattern rule that compiles every .c file into a .o file in its
+# destination in the debug folder
+$(ODIR)/debug/%.o : CPPFLAGS += -DDEBUG
+$(ODIR)/debug/%.o : $(SDIR)/%.c
+	$(CC) -g -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
 
-all : init $(OBJS)
-	@echo Target: $@
+# Define a pattern rule that compiles every .c file into a .o file in its
+# destination in the release folder
+$(ODIR)/release/%.o : CPPFLAGS += -DRELEASE
+$(ODIR)/release/%.o : $(SDIR)/%.c
+	$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
 
 .PHONY: clean
 
@@ -50,9 +78,41 @@ init :
 		mkdir $(ODIR); \
 	fi
 
+init_debug : init_bin
+	@if [ ! -d "$(ODIR)/debug" ]; then \
+		mkdir $(ODIR)/debug; \
+	fi
+
+init_release :
+	@if [ ! -d "$(ODIR)/release" ]; then \
+		mkdir $(ODIR)/release; \
+	fi
+
+init_bin_release : init_bin
+	@if [ ! -d bin/release ]; then \
+		mkdir bin/release; \
+	fi
+
+init_bin_debug : init_bin
+	@if [ ! -d bin/debug ]; then \
+		mkdir bin/debug; \
+	fi
+
+init_bin :
+	@if [ ! -d bin ]; then \
+		mkdir bin; \
+	fi
+
+help :
+	@echo Usage make [options]
+	@echo Options:
+	@echo 	-D={release,debug}		Compile with the release type specified
+	@echo 
+	@echo For more information on the make commands, see the README.md file
+
 
 clean :
 	@echo Cleaning this project
-	rm -f $(ODIR)/*.o
-	rmdir $(ODIR)
+	rm -rf ./$(ODIR)
+	rm -rf ./bin
 

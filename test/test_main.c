@@ -49,7 +49,7 @@ static void reset_cpu_test(void **state)
     (void)state;
     CPU* cpu = create_cpu();
     reset_cpu(cpu);
-    // Create the instructio with 2 Most significant bits as 0
+    // Create the instruction with 2 Most significant bits as 0
     // 0b0011_1111
     Instruction ins = {0x3F};
     execute(cpu, &ins);

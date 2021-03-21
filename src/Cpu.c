@@ -52,8 +52,8 @@ const struct InstructionPattern_t InstructionPattern[] =
     {0x48, 0xF8, LOAD_STORE_SINGLE_GROUP},     // 0b0100_1x
     {0xC0, 0xF8, LOAD_STORE_MULTIPLE_GROUP},   // 0b1100_0x
     {0xC8, 0xF8, LOAD_STORE_MULTIPLE_GROUP},   // 0b1100_1x
-    {0xE0, 0xF8, UNCONDITIONAL_BRANCH_GROUP},  // 0b1101_xx
-    {0x80, 0xFC, DATA_PROCESSING_GROUP},       // 0b0100_00
+    {0xE0, 0xF8, UNCONDITIONAL_BRANCH_GROUP},  // 0b1110_0x
+    {0x40, 0xFC, DATA_PROCESSING_GROUP},       // 0b0100_00
     {0x44, 0xFC, SPECIAL_DATA_GROUP}           // 0b0100_01
 };
 

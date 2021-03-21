@@ -11,12 +11,17 @@
 #include "test_cpu.h"
 #include "Armv6_cpu.h"
 
-const struct CMUnitTest cpu_small_tests[3] =
+/// \brief
+/// Array of Unit tests to be run by the program. ADD here
+const struct CMUnitTest cpu_small_tests[] =
 {
     cmocka_unit_test(create_cpu_test),
     cmocka_unit_test(reset_cpu_test),
-    cmocka_unit_test(decode_shift_test)
+    cmocka_unit_test(decode_shift_test),
+    cmocka_unit_test(decode_data_processing_test),
+    cmocka_unit_test(decode_special_data_test)
 };
+
 
 void create_cpu_test(void **state)
 {
@@ -54,8 +59,32 @@ void reset_cpu_test(void **state)
 void decode_shift_test(void **state)
 {
     (void)state;
-    CPU* cpu = create_cpu();
-    assert_non_null(cpu);
+    Instruction inst;
+    // Create the instruction with 2 Most significant bits as 0
+    inst.rawData = 0x3FFF;
+    InstructionGroup_t group = decodeInstruction(&inst);
+    assert_int_equal(SHIFT_GROUP, group);
+
+}
+
+void decode_data_processing_test(void **state)
+{
+    (void)state;
+    Instruction inst;
+    // 0b0100_00xx_xxxx_xxxx
+    inst.rawData = 0x43FF;
+    InstructionGroup_t group = decodeInstruction(&inst);
+    assert_int_equal(DATA_PROCESSING_GROUP, group);
+}
+
+void decode_special_data_test(void **state)
+{
+    (void)state;
+    Instruction inst;
+    // 0b0100_01xx_xxxx_xxxx
+    inst.rawData = 0x47FF;
+    InstructionGroup_t group = decodeInstruction(&inst);
+    assert_int_equal(SPECIAL_DATA_GROUP, group);
 }
 
 /*static void execute_shift_opcode_test(void **state)
@@ -68,4 +97,7 @@ void decode_shift_test(void **state)
     Instruction ins = {0x3F};
     execute(cpu, &ins);
 }*/
+
+
+
 

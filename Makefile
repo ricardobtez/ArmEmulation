@@ -30,6 +30,7 @@ CFLAGS += -Wlogical-op  # Warn if logical operations is used where bitwise might
 INC = -iquote inc/
 ODIR = obj
 SDIR = src
+TDIR = test
 
 # Object files to compile
 _OBJS = Conditionalbranch.o
@@ -41,8 +42,11 @@ _OBJS += Shift.o
 _OBJS += Specialdata.o
 _OBJS += main.o
 
+_OBJS_TEST = test_main.o
+
 OBJS_DEBUG = $(patsubst %,$(ODIR)/debug/%,$(_OBJS))
 OBJS_RELEASE = $(addprefix $(ODIR)/release/,$(_OBJS))
+OBJS_TEST = $(addprefix $(ODIR)/test/,$(_OBJS_TEST))
 
 all : release
 
@@ -53,6 +57,11 @@ release : init init_release $(OBJS_RELEASE) init_bin_release
 debug : init init_debug $(OBJS_DEBUG) init_bin_debug
 	@echo Target: $@
 	@$(CC) -g $(OBJS_DEBUG) -o bin/debug/$(EX_NAME)
+
+test: init init_test $(OBJS_TEST) init_bin_test
+	@echo Unit testing
+	@$(CC) $(OBJS_TEST) -lcmocka -o bin/test/$(EX_NAME)
+	@./bin/test/$(EX_NAME)
 
 # Define a pattern rule that compiles every .c file into a .o file in its destination
 #$(ODIR)/%.o: $(SDIR)/%.c
@@ -69,6 +78,12 @@ $(ODIR)/debug/%.o : $(SDIR)/%.c
 # destination in the release folder
 $(ODIR)/release/%.o : CPPFLAGS += -DRELEASE
 $(ODIR)/release/%.o : $(SDIR)/%.c
+	$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
+
+# Define a pattern rule that compiles every .c file into a .o file in its
+# destination in the release folder
+$(ODIR)/test/%.o : CPPFLAGS += -DDEBUG
+$(ODIR)/test/%.o : $(TDIR)/%.c
 	$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
 
 .PHONY: clean
@@ -101,6 +116,16 @@ init_bin_debug : init_bin
 init_bin :
 	@if [ ! -d bin ]; then \
 		mkdir bin; \
+	fi
+
+init_test :
+	@if [ ! -d "$(ODIR)/test" ]; then \
+		mkdir $(ODIR)/test; \
+	fi
+
+init_bin_test : init_bin
+	@if [ ! -d bin/test ]; then \
+		mkdir bin/test; \
 	fi
 
 help :

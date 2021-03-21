@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +16,7 @@ jobs:
       # uses: mstksg/get-package@4eda30bb5c6ac62c0f3921dd5884b6ef8fc89ab2
       uses: mstksg/get-package@v1
       with:
-        apt-get: libcmocka0
+        apt-get: libcmocka0 libcmocka-dev
 
     - uses: actions/checkout@v2
     #- name: configure

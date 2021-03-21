@@ -11,7 +11,7 @@
 #ifndef ARMv6_MISCELANIOUS_H
 #define ARMv6_MISCELANIOUS_H
 
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 /// \brief
 /// Function to execute miscelanious group instructions

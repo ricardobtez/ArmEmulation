@@ -11,7 +11,7 @@
 #ifndef ARMv6_DATA_PROCESSING_H
 #define ARMv6_DATA_PROCESSING_H
 
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 /// \brief
 /// Function to execute data processing group instructions

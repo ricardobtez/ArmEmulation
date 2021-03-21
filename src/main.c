@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 
 int main()

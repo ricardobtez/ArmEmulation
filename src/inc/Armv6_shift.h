@@ -11,7 +11,7 @@
 #ifndef ARMv6_SHIFT_H
 #define ARMv6_SHIFT_H
 
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 /// \brief
 /// Function to execute shift instructions

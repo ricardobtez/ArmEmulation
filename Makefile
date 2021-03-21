@@ -28,6 +28,8 @@ CFLAGS += -Wlogical-op  # Warn if logical operations is used where bitwise might
 #CFLAGS += -Wuseless-cast  # Warn if cast to the same type
 
 INC = -iquote inc/
+INC += -iquote src/inc/
+INC_TEST = -iquote test/inc/
 ODIR = obj
 SDIR = src
 TDIR = test
@@ -41,6 +43,8 @@ _OBJS += Miscelanious.o
 _OBJS += Shift.o
 _OBJS += Specialdata.o
 
+_OBJS_TEST = test_cpu.o
+
 _OBJS_MAIN = main.o
 _OBJS_MAIN_TEST = test_main.o
 
@@ -50,6 +54,7 @@ OBJS_DEBUG_MAIN = $(patsubst %,$(ODIR)/debug/%,$(_OBJS_MAIN))
 OBJS_RELEASE = $(addprefix $(ODIR)/release/,$(_OBJS))
 OBJS_RELEASE_MAIN = $(addprefix $(ODIR)/release/,$(_OBJS_MAIN))
 
+OBJS_TEST = $(addprefix $(ODIR)/test/,$(_OBJS_TEST))
 OBJS_TEST += $(addprefix $(ODIR)/test/,$(_OBJS_MAIN_TEST))
 
 all : release
@@ -106,7 +111,7 @@ $(ODIR)/release/%.o : $(SDIR)/%.c
 # destination in the release folder
 $(ODIR)/test/%.o : CPPFLAGS += -DDEBUG
 $(ODIR)/test/%.o : $(TDIR)/%.c
-	$(CC) -c $(CFLAGS) $(INC) $(CPPFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $(INC) $(INC_TEST) $(CPPFLAGS) $< -o $@
 
 .PHONY: clean
 

@@ -11,7 +11,7 @@
 #ifndef ARMv6_SPECIAL_DATA_H
 #define ARMv6_SPECIAL_DATA_H
 
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 /// \brief
 /// Function to execute special data group instructions

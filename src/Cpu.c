@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Cpu.h"
 #include "Armv6_cpu.h"
 #include "Armv6_shift.h"
 #include "Armv6_dataprocessing.h"
@@ -18,26 +19,6 @@
 #include "Armv6_miscelanious.h"
 #include "Armv6_conditionalbranch.h"
 
-typedef enum InstructionGroup_t
-{
-    SHIFT_GROUP                 = 1,
-    DATA_PROCESSING_GROUP       = 2,
-    SPECIAL_DATA_GROUP          = 3,
-    LOAD_STORE_SINGLE_GROUP     = 4,
-    GENERATE_RELATIVE_ADD_GROUP = 5,
-    LOAD_STORE_MULTIPLE_GROUP   = 6,
-    MISCELANIOUS_GROUP          = 7,
-    CONDITIONAL_BRANCH_GROUP    = 8,
-    UNCONDITIONAL_BRANCH_GROUP  = 9,
-    INVALID_INSTRUCTION_GROUP
-}InstructionGroup_t;
-
-struct InstructionPattern_t
-{
-    uint8_t pattern;
-    uint8_t mask;
-    InstructionGroup_t group;
-}InstructionPattern_t;
 
 const struct InstructionPattern_t InstructionPattern[] =
 {
@@ -56,10 +37,6 @@ const struct InstructionPattern_t InstructionPattern[] =
     {0x40, 0xFC, DATA_PROCESSING_GROUP},       // 0b0100_00
     {0x44, 0xFC, SPECIAL_DATA_GROUP}           // 0b0100_01
 };
-
-/// \brief
-/// Static function to determine the Instruction group
-static InstructionGroup_t decodeInstruction(const Instruction* instruction);
 
 void execute(CPU* cpu, const Instruction* instruction)
 {

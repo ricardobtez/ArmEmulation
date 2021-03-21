@@ -37,7 +37,7 @@ struct ShiftInstPattern_t
 
 /// \brief
 /// Static function to determine the shift Instruction group
-static ShiftGroup_t decodeInstruction(const Instruction* instruction);
+static ShiftGroup_t decode_shift(const Instruction* instruction);
 
 /// \brief
 /// Pattern used with the Shift.opcode struct data element
@@ -49,7 +49,7 @@ const struct ShiftInstPattern_t shift_inst_pattern[] =
     {0x10, 0x1C, MOV_IM},   // 0b1_00xx
     {0x14, 0x1C, CMP_IM},   // 0b1_01xx
     {0x18, 0x1C, ADD_IM_8}, // 0b1_10xx
-    {0x1C, 0x1C, SUB_IM_8},  // 0b1_11xx
+    {0x1C, 0x1C, SUB_IM_8}, // 0b1_11xx
     {0xC0, 0x1F, ADD_R},    // 0b0_1100
     {0x0D, 0x1F, SUB_R},    // 0b0_1101
     {0x0E, 0x1F, ADD_IM_3}, // 0b0_1110
@@ -60,7 +60,7 @@ void execute_shift(CPU* cpu, const Instruction* instruction)
 {
     (void)cpu;
     (void)instruction;
-    ShiftGroup_t group = decodeInstruction(instruction);
+    ShiftGroup_t group = decode_shift(instruction);
 
     switch (group)
     {
@@ -106,7 +106,7 @@ void execute_shift(CPU* cpu, const Instruction* instruction)
     }
 }
 
-ShiftGroup_t decodeInstruction(const Instruction* instruction)
+ShiftGroup_t decode_shift(const Instruction* instruction)
 {
     ShiftGroup_t group = INVALID_MNEMONIC;
     uint16_t it = sizeof(shift_inst_pattern) / sizeof(ShiftInstPattern_t) - 1;

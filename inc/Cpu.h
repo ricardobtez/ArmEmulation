@@ -1,6 +1,6 @@
 /**
- * \file Armv6_cpu.h
- * \brief This file contains the CPU specification for the Armv6 cpu
+ * \file Cpu.h
+ * \brief This file contains the CPU public specification for the Armv6 cpu
  *
  * \author Ricardo Benitez
  *
@@ -8,8 +8,8 @@
  * See file LICENSE for full license details.
  **/
 
-#ifndef ARMv6_CPU_H
-#define ARMv6_CPU_H
+#ifndef CPU_H
+#define CPU_H
 
 #include "Armv6_types.h"
 
@@ -210,5 +210,5 @@ void reset_cpu(CPU* cpu);
 /// Execute an execution with corresponding CPU in a single Tick
 void execute_instruction(CPU* cpu, const Instruction* instruction);
 
-#endif /* ARMv6_CPU_H */
+#endif /* CPU_H */
 

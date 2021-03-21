@@ -11,7 +11,7 @@
 #ifndef ARMv6_LOAD_STORE_SINGLE_H
 #define ARMv6_LOAD_STORE_SINGLE_H
 
-#include "Armv6_cpu.h"
+#include "Cpu.h"
 
 /// \brief
 /// Function to execute load store single group instructions

@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: C CI Release
 
 on:
   push:
@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get testing framework
+      # You may pin to the exact commit or the version.
+      # uses: mstksg/get-package@4eda30bb5c6ac62c0f3921dd5884b6ef8fc89ab2
+    - uses: mstksg/get-package@v1
+      with:
+        apt-get: libcmocka0
+
     - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure

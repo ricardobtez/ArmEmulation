@@ -40,27 +40,49 @@ _OBJS += Loadstoresingle.o
 _OBJS += Miscelanious.o
 _OBJS += Shift.o
 _OBJS += Specialdata.o
-_OBJS += main.o
 
-_OBJS_TEST = test_main.o
+_OBJS_MAIN = main.o
+_OBJS_MAIN_TEST = test_main.o
 
 OBJS_DEBUG = $(patsubst %,$(ODIR)/debug/%,$(_OBJS))
+OBJS_DEBUG_MAIN = $(patsubst %,$(ODIR)/debug/%,$(_OBJS_MAIN))
+
 OBJS_RELEASE = $(addprefix $(ODIR)/release/,$(_OBJS))
-OBJS_TEST = $(addprefix $(ODIR)/test/,$(_OBJS_TEST))
+OBJS_RELEASE_MAIN = $(addprefix $(ODIR)/release/,$(_OBJS_MAIN))
+
+OBJS_TEST += $(addprefix $(ODIR)/test/,$(_OBJS_MAIN_TEST))
 
 all : release
 
-release : init init_release $(OBJS_RELEASE) init_bin_release
-	@echo Target: $@
-	@$(CC) $(OBJS_RELEASE) -o bin/release/$(EX_NAME)
+release : release_obj release_bin
+	@echo
+	@echo \******************************
+	@echo \* Finished target $@
+	@echo \******************************
 
-debug : init init_debug $(OBJS_DEBUG) init_bin_debug
-	@echo Target: $@
-	@$(CC) -g $(OBJS_DEBUG) -o bin/debug/$(EX_NAME)
+release_obj : init init_release $(OBJS_RELEASE) init_bin_release
 
-test: init init_test $(OBJS_TEST) init_bin_test
-	@echo Unit testing
-	@$(CC) $(OBJS_TEST) -lcmocka -o bin/test/$(EX_NAME)
+release_bin : $(OBJS_RELEASE_MAIN)
+	@$(CC) $(OBJS_RELEASE) $(OBJS_RELEASE_MAIN) -o bin/release/$(EX_NAME)
+
+debug : debug_obj debug_main
+	@echo
+	@echo \******************************
+	@echo \* Finished target $@
+	@echo \******************************
+
+debug_obj : init init_debug $(OBJS_DEBUG) init_bin_debug
+
+debug_main : $(OBJS_DEBUG_MAIN)
+	@$(CC) -g $(OBJS_DEBUG) $(OBJS_DEBUG_MAIN) -o bin/debug/$(EX_NAME)
+
+test: debug_obj init_test $(OBJS_TEST) init_bin_test
+	@echo
+	@echo \******************************
+	@echo \* Start of unit testing
+	@echo \******************************
+	@echo
+	@$(CC) $(OBJS_TEST) $(OBJS_DEBUG) -lcmocka -o bin/test/$(EX_NAME)
 	@./bin/test/$(EX_NAME)
 
 # Define a pattern rule that compiles every .c file into a .o file in its destination

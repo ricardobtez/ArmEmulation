@@ -9,6 +9,7 @@
  **/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "Armv6_cpu.h"
 #include "Armv6_shift.h"
 #include "Armv6_dataprocessing.h"
@@ -101,12 +102,23 @@ void execute(CPU* cpu, const Instruction* instruction)
     }
 }
 
+CPU* create_cpu(void)
+{
+    CPU* cpu = malloc(sizeof(CPU));
+    return cpu;
+}
+
+void reset_cpu(CPU* cpu)
+{
+    (void)cpu;
+}
+
 
 InstructionGroup_t decodeInstruction(const Instruction* instruction)
 {
     InstructionGroup_t group = INVALID_INSTRUCTION_GROUP;
     uint16_t it = sizeof(InstructionPattern) / sizeof(InstructionPattern_t) - 1;
-    uint8_t masked_instruction = 0x0000;
+    uint8_t masked_instruction = 0x00;
 
     while (INVALID_INSTRUCTION_GROUP == group)
     {

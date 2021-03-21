@@ -199,9 +199,16 @@ typedef union Instruction
 }Instruction;
 
 /// \brief
-/// Execute an execution with corresponding CPU in a single Tick
-void execute(CPU* cpu, const Instruction* instruction);
+/// Creates the cpu and returns a pointer to the instance
+CPU* create_cpu(void);
 
+/// \brief
+/// Resets the CPU to an initial known state. Must be called after create_cpu
+void reset_cpu(CPU* cpu);
+
+/// \brief
+/// Execute an execution with corresponding CPU in a single Tick
+void execute_instruction(CPU* cpu, const Instruction* instruction);
 
 #endif /* ARMv6_CPU_H */
 

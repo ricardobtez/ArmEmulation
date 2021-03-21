@@ -1,4 +1,6 @@
-[![C/C++ CI](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make.yml/badge.svg?branch=main&event=push)](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make.yml)
+[![C CI Release](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make_release.yml/badge.svg?branch=main)](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make_release.yml)
+
+[![C CI Debug](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make_debug.yml/badge.svg?branch=main)](https://github.com/ricardobtez/ArmEmulation/actions/workflows/c_make_debug.yml)
 
 # ArmEmulation
 

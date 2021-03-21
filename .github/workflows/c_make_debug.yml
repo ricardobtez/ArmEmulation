@@ -1,4 +1,4 @@
-name: C CI Release
+name: C CI Debug
 
 on:
   push:

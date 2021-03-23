@@ -64,7 +64,6 @@ void decode_shift_test(void **state)
     inst.rawData = 0x3FFF;
     InstructionGroup_t group = decodeInstruction(&inst);
     assert_int_equal(SHIFT_GROUP, group);
-
 }
 
 void decode_data_processing_test(void **state)
@@ -86,18 +85,4 @@ void decode_special_data_test(void **state)
     InstructionGroup_t group = decodeInstruction(&inst);
     assert_int_equal(SPECIAL_DATA_GROUP, group);
 }
-
-/*static void execute_shift_opcode_test(void **state)
-{
-    (void)state;
-    CPU* cpu = create_cpu();
-    reset_cpu(cpu);
-    // Create the instruction with 2 Most significant bits as 0
-    // 0b0011_1111
-    Instruction ins = {0x3F};
-    execute(cpu, &ins);
-}*/
-
-
-
 

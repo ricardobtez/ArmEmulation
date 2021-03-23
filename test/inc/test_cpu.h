@@ -18,7 +18,6 @@ void decode_shift_test(void **state);
 void decode_data_processing_test(void **state);
 void decode_special_data_test(void **state);
 
-
 extern const struct CMUnitTest cpu_small_tests[5];
 
 #endif /* TEST_CPU_H */

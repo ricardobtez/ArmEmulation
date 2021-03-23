@@ -44,6 +44,7 @@ _OBJS += Shift.o
 _OBJS += Specialdata.o
 
 _OBJS_TEST = test_cpu.o
+_OBJS_TEST += test_shift.o
 
 _OBJS_MAIN = main.o
 _OBJS_MAIN_TEST = test_main.o

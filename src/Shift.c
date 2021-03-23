@@ -11,34 +11,6 @@
 #include <stdio.h>
 #include "Armv6_shift.h"
 
-typedef enum ShiftGroup_t
-{
-    MOV_R,      // Move Register
-    LSL_IM,     // Logical Shift Left
-    LSR_IM,     // Logical Shift Right
-    ASR_IM,     // Arithmetic Shift Right
-    ADD_R,      // Add register
-    SUB_R,      // Substract register
-    ADD_IM_3,   // Add 3-bit immediate
-    SUB_IM_3,   // Substract 3-bit immediate
-    MOV_IM,     // Move
-    CMP_IM,     // Compare
-    ADD_IM_8,   // Add 8-bit immediate
-    SUB_IM_8,   // Substract 8-bit immediate
-    INVALID_MNEMONIC
-}ShiftGroup_t;
-
-struct ShiftInstPattern_t
-{
-    uint8_t pattern;
-    uint8_t mask;
-    ShiftGroup_t group;
-}ShiftInstPattern_t;
-
-/// \brief
-/// Static function to determine the shift Instruction group
-static ShiftGroup_t decode_shift(const Instruction* instruction);
-
 /// \brief
 /// Pattern used with the Shift.opcode struct data element
 const struct ShiftInstPattern_t shift_inst_pattern[] =
@@ -67,10 +39,10 @@ void execute_shift(CPU* cpu, const Instruction* instruction)
         case MOV_R:
             break;
 
+        // Intentional fall through as they are treated by the same function
         case LSL_IM:
-            break;
-
         case LSR_IM:
+            execute_logical_shift(cpu, instruction, group);
             break;
 
         case ASR_IM:
@@ -110,7 +82,7 @@ ShiftGroup_t decode_shift(const Instruction* instruction)
 {
     ShiftGroup_t group = INVALID_MNEMONIC;
     uint16_t it = sizeof(shift_inst_pattern) / sizeof(ShiftInstPattern_t) - 1;
-    uint8_t maskedInstruction = 0x00;
+    int32_t maskedInstruction = 0x00;
 
     while (INVALID_MNEMONIC == group)
     {
@@ -125,5 +97,48 @@ ShiftGroup_t decode_shift(const Instruction* instruction)
     }
 
     return group;
+}
+
+void execute_logical_shift(CPU* cpu,
+                           const Instruction* instruction,
+                           const ShiftGroup_t group)
+{
+    ShiftEnum_t inst;
+    Word* sourceRegister = NULL;
+    Word* destinationRegister = NULL;
+    Word temporalVariable = 0;
+
+    inst.rawData = instruction->rawData;
+
+    // The instruction actually is MOV
+    if ( (0 == inst.logical_shift.opcode) &&
+         (0 == inst.logical_shift.imm5))
+    {
+        // Call the MOV (register instruction)
+    }
+    else
+    {
+        // Gets the address of where the R0...R7 is within the CPU struct
+        sourceRegister = (&cpu->R0) + (inst.logical_shift.Rm * sizeof(Word));
+        destinationRegister = (&cpu->R0) + (inst.logical_shift.Rd * sizeof(Word));
+
+        switch (group)
+        {
+            case LSL_IM:
+                temporalVariable = (*sourceRegister) >> inst.logical_shift.imm5;
+                break;
+
+            case LSR_IM:
+                temporalVariable = (*sourceRegister) << inst.logical_shift.imm5;
+                break;
+
+            default:
+                break;
+        }
+        *destinationRegister = temporalVariable;
+        cpu->STATUS.APSR.N = (unsigned char)(temporalVariable & 0x80000000);
+        cpu->STATUS.APSR.Z = (temporalVariable == 0) ? 1 : 0;
+        cpu->STATUS.APSR.C = 0;
+    }
 }
 

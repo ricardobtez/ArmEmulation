@@ -10,6 +10,7 @@
 #include "Cpu.h"
 #include "test_common.h"
 #include "test_cpu.h"
+#include "test_shift.h"
 
 /* A test case that does nothing and succeeds. */
 static void null_test_success(void **state)
@@ -26,5 +27,6 @@ int main(void)
     };
     error = cmocka_run_group_tests(tests, NULL, NULL);
     error |= cmocka_run_group_tests(cpu_small_tests, NULL, NULL);
+    //error |= cmocka_run_group_tests(cpu_shift_small_tests, NULL, NULL);
     return error;
 }

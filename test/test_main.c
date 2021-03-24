@@ -27,6 +27,6 @@ int main(void)
     };
     error = cmocka_run_group_tests(tests, NULL, NULL);
     error |= cmocka_run_group_tests(cpu_small_tests, NULL, NULL);
-    //error |= cmocka_run_group_tests(cpu_shift_small_tests, NULL, NULL);
+    error |= cmocka_run_group_tests(cpu_shift_small_tests, NULL, NULL);
     return error;
 }

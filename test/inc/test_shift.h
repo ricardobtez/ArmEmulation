@@ -17,7 +17,7 @@ void decode_shift_lsl_test(void **state);
 void decode_shift_lsr_test(void **state);
 //void execute_shift_lsl_test(void **state);
 
-extern const struct CMUnitTest cpu_shift_small_tests[0];
+extern const struct CMUnitTest cpu_shift_small_tests[2];
 
 #endif /* TEST_SHIFT_H */
 

@@ -13,8 +13,8 @@
 
 const struct CMUnitTest cpu_shift_small_tests[] =
 {
-    //cmocka_unit_test(decode_shift_lsl_test),
-    //cmocka_unit_test(decode_shift_lsr_test)
+    cmocka_unit_test(decode_shift_lsl_test),
+    cmocka_unit_test(decode_shift_lsr_test)
     //cmocka_unit_test(execute_shift_lsl_test)
 };
 
@@ -22,8 +22,8 @@ void decode_shift_lsl_test(void **state)
 {
     (void)state;
     Instruction inst;
-    // 0b0000_000x_xxxx_xxxx
-    inst.rawData = 0x1FFF;
+    // 0b0000_0xxx_xxxx_xxxx
+    inst.rawData = 0x07FF;
     ShiftGroup_t group = decode_shift(&inst);
     assert_int_equal(LSL_IM, group);
 }
@@ -32,8 +32,8 @@ void decode_shift_lsr_test(void **state)
 {
     (void)state;
     Instruction inst;
-    // 0b0000_001x_xxxx_xxxx
-    inst.rawData = 0x3FFF;
+    // 0b0000_1xxx_xxxx_xxxx
+    inst.rawData = 0x0FFF;
     ShiftGroup_t group = decode_shift(&inst);
     assert_int_equal(LSR_IM, group);
 }

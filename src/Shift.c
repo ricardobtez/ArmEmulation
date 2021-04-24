@@ -46,6 +46,7 @@ void execute_shift(CPU* cpu, const Instruction* instruction)
             break;
 
         case ASR_IM:
+            execute_arithmetic_right_shift(cpu, instruction);
             break;
 
         case ADD_R:
@@ -140,5 +141,26 @@ void execute_logical_shift(CPU* cpu,
         cpu->STATUS.APSR.Z = (temporalVariable == 0) ? 1 : 0;
         cpu->STATUS.APSR.C = 0;
     }
+}
+
+void execute_arithmetic_right_shift(CPU* cpu,
+                              const Instruction* instruction)
+{
+    ShiftUnion_t inst;
+    Word* sourceRegister = NULL;
+    Word* destinationRegister = NULL;
+    Word temporalVariable = 0;
+
+    inst.rawData = instruction->rawData;
+
+    sourceRegister = &cpu->R0 + inst.arithmetic_shift.Rm;
+    destinationRegister = &cpu->R0 + inst.arithmetic_shift.Rd;
+
+    temporalVariable = (*sourceRegister) >> inst.logical_shift.imm5;
+
+    *destinationRegister = temporalVariable;
+    cpu->STATUS.APSR.N = (unsigned char)(temporalVariable & 0x80000000);
+    cpu->STATUS.APSR.Z = (temporalVariable == 0) ? 1 : 0;
+    cpu->STATUS.APSR.C = 0;
 }
 

@@ -43,10 +43,21 @@ typedef struct LogicalShift_t
 }LogicalShift_t;
 
 /// \brief
+/// Struct with the Arithmetic shift instruction
+typedef struct ArithmeticShift_t
+{
+    Halfword Rd : 3;
+    Halfword Rm : 3;
+    Halfword imm5 : 5;
+    Halfword opcode : 5;
+}ArithmeticShift_t;
+
+/// \brief
 /// Union with all the possible Shift Instructions groups
 typedef union ShiftUnion_t
 {
     LogicalShift_t logical_shift;
+    ArithmeticShift_t arithmetic_shift;
     Halfword rawData;
 }ShiftUnion_t;
 
@@ -66,6 +77,11 @@ void execute_shift(CPU* cpu, const Instruction* instruction);
 void execute_logical_shift(CPU* cpu,
                            const Instruction* instruction,
                            const ShiftGroup_t group);
+
+/// \brief
+/// Execute ASR instructions
+void execute_arithmetic_right_shift(CPU* cpu,
+                           const Instruction* instruction);
 
 /// \brief
 /// Function to determine the shift Instruction group

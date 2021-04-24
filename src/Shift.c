@@ -103,7 +103,7 @@ void execute_logical_shift(CPU* cpu,
                            const Instruction* instruction,
                            const ShiftGroup_t group)
 {
-    ShiftEnum_t inst;
+    ShiftUnion_t inst;
     Word* sourceRegister = NULL;
     Word* destinationRegister = NULL;
     Word temporalVariable = 0;
@@ -119,17 +119,17 @@ void execute_logical_shift(CPU* cpu,
     else
     {
         // Gets the address of where the R0...R7 is within the CPU struct
-        sourceRegister = (&cpu->R0) + (inst.logical_shift.Rm * sizeof(Word));
-        destinationRegister = (&cpu->R0) + (inst.logical_shift.Rd * sizeof(Word));
+        sourceRegister = &cpu->R0 + inst.logical_shift.Rm;
+        destinationRegister = &cpu->R0 + inst.logical_shift.Rd;
 
         switch (group)
         {
             case LSL_IM:
-                temporalVariable = (*sourceRegister) >> inst.logical_shift.imm5;
+                temporalVariable = (*sourceRegister) << inst.logical_shift.imm5;
                 break;
 
             case LSR_IM:
-                temporalVariable = (*sourceRegister) << inst.logical_shift.imm5;
+                temporalVariable = (*sourceRegister) >> inst.logical_shift.imm5;
                 break;
 
             default:

@@ -36,19 +36,19 @@ typedef enum ShiftGroup_t
 /// Struct with the Logical shift instruction
 typedef struct LogicalShift_t
 {
-    Halfword opcode : 5;
-    Halfword imm5 : 5;
-    Halfword Rm : 3;
     Halfword Rd : 3;
+    Halfword Rm : 3;
+    Halfword imm5 : 5;
+    Halfword opcode : 5;
 }LogicalShift_t;
 
 /// \brief
 /// Union with all the possible Shift Instructions groups
-typedef union ShiftEnum_t
+typedef union ShiftUnion_t
 {
     LogicalShift_t logical_shift;
     Halfword rawData;
-}ShiftEnum_t;
+}ShiftUnion_t;
 
 typedef struct ShiftInstPattern_t
 {

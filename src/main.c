@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "Cpu.h"
-#include "Armv6_shift.h"
+//#include "Armv6_shift.h"
 
 int main()
 {
@@ -10,7 +10,10 @@ int main()
     reset_cpu(cpu);
 
     Instruction inst;
-    // 0b0000_001x_xxxx_xxxx
-    inst.rawData = 0x03FF;;
-    ShiftGroup_t group = decode_shift(&inst);
+
+    // 0b0000_0xxx_xxxx_xxxx
+    cpu->R2 = 4;
+    cpu->R3 = 12;
+    inst.rawData = 0x0113;
+    execute_instruction(cpu, &inst);
 }

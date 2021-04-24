@@ -38,7 +38,7 @@ const struct InstructionPattern_t InstructionPattern[] =
     {0x44, 0xFC, SPECIAL_DATA_GROUP}           // 0b0100_01
 };
 
-void execute(CPU* cpu, const Instruction* instruction)
+void execute_instruction(CPU* cpu, const Instruction* instruction)
 {
     if (!cpu || !instruction)
     {

@@ -13,11 +13,11 @@
 
 #include "test_common.h"
 
-void decode_shift_lsl_test(void **state);
-void decode_shift_lsr_test(void **state);
-//void execute_shift_lsl_test(void **state);
+void decode_shift_lsl_imm_small_test(void **state);
+void decode_shift_lsr_imm_small_test(void **state);
+void execute_shift_lsl_imm_small_test(void **state);
 
-extern const struct CMUnitTest cpu_shift_small_tests[2];
+extern const struct CMUnitTest cpu_shift_small_tests[3];
 
 #endif /* TEST_SHIFT_H */
 
